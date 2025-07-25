@@ -102,12 +102,12 @@ Yui Yuri's Dream = prophet-blog</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipew8gmvyj20zk0m87wh.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giph4wqtg4j20zk0m8x6p.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicli3sbvtj20zk0m8x6p.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipewr8iypj20zk0m8b29.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclga70tsj20zk0m84mr.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclgrvbd6j20zk0m8qv5.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicit31ffoj20zk0m8naf.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipet4bz0yj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipetv6p75j20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciuv0socj20zk0m8qes.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclgrvbd6j20zk0m8qv5.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicitf0kl1j20zk0m87fe.jpg"></li>
         </ul>
       </div>
     </header>
@@ -154,7 +154,7 @@ Yui Yuri's Dream = prophet-blog</title>
     <h1 id="管理依赖"><a href="#管理依赖" class="headerlink" title="管理依赖"></a>管理依赖</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">       &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">       &lt;artifactId&gt;spring-tx&lt;/artifactId&gt;</span><br><span class="line">       &lt;version&gt;3.1.0.RELEASE&lt;/version&gt;</span><br><span class="line">   &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">   &lt;dependency&gt;</span><br><span class="line">       &lt;groupId&gt;javax.transaction&lt;/groupId&gt;</span><br><span class="line">       &lt;artifactId&gt;jta&lt;/artifactId&gt;</span><br><span class="line">       &lt;version&gt;1.1&lt;/version&gt;</span><br><span class="line">   &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
 
 <p>用于spring事务管理</p>
-<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="JtaTransactionManager"><a href="#JtaTransactionManager" class="headerlink" title="JtaTransactionManager"></a>JtaTransactionManager</h2><p><img data-src="/../../../../images%5Cspring-jtaTranscationMannager%5Cimage-20250721111840300.png" alt="image-20250721111840300"></p>
+<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="JtaTransactionManager"><a href="#JtaTransactionManager" class="headerlink" title="JtaTransactionManager"></a>JtaTransactionManager</h2><p><img data-src="/%5Cimages%5Cspring-jtaTranscationMannager%5Cimage-20250721111840300.png" alt="image-20250721111840300"></p>
 <p>可以看到readObject方法中调用了initUserTransactionAndTransactionManager方法</p>
 <p><img data-src="/../../../../images%5Cspring-jtaTranscationMannager%5Cimage-20250721104430676.png" alt="image-20250721104430676"></p>
 <p>在initUserTransactionAndTransactionManager方法中又调用了lookupUserTransaction，值为我们设置的userTansactionName</p>
@@ -185,7 +185,7 @@ Yui Yuri's Dream = prophet-blog</title>
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">Edited on</span>
-    <time title="Modified: 2025-07-25 10:12:18" itemprop="dateModified" datetime="2025-07-25T10:12:18+08:00">2025-07-25</time>
+    <time title="Modified: 2025-07-25 10:57:01" itemprop="dateModified" datetime="2025-07-25T10:57:01+08:00">2025-07-25</time>
   </span>
 </div>
 
@@ -217,7 +217,7 @@ Yui Yuri's Dream = prophet-blog</title>
     <div class="item left">
       
 
-  <a href="/2025/07/21/hello-world/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicli3sbvtj20zk0m8x6p.jpg" title="Hello World">
+  <a href="/2025/07/21/hello-world/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipeun65urj20zk0m81ii.jpg" title="Hello World">
   <span class="type">Previous Post</span>
   <span class="category"><i class="ic i-flag"></i> </span>
   <h3>Hello World</h3>
