@@ -102,12 +102,12 @@ Yui Yuri's Dream = prophet-blog</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipew28b65j20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclga70tsj20zk0m84mr.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclhnx9glj20zk0m8npd.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclgrvbd6j20zk0m8qv5.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giph4wqtg4j20zk0m8x6p.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipet4bz0yj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclflwv2aj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclh5u05ej20zk0m87df.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipet4bz0yj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclhpw3lwj20zk0m8gvw.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeu1usa7j20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeyvx1d4j20zk0m8hdt.jpg"></li>
         </ul>
       </div>
     </header>
@@ -154,22 +154,22 @@ Yui Yuri's Dream = prophet-blog</title>
     <h1 id="管理依赖"><a href="#管理依赖" class="headerlink" title="管理依赖"></a>管理依赖</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">       &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">       &lt;artifactId&gt;spring-tx&lt;/artifactId&gt;</span><br><span class="line">       &lt;version&gt;3.1.0.RELEASE&lt;/version&gt;</span><br><span class="line">   &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">   &lt;dependency&gt;</span><br><span class="line">       &lt;groupId&gt;javax.transaction&lt;/groupId&gt;</span><br><span class="line">       &lt;artifactId&gt;jta&lt;/artifactId&gt;</span><br><span class="line">       &lt;version&gt;1.1&lt;/version&gt;</span><br><span class="line">   &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
 
 <p>用于spring事务管理</p>
-<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="JtaTransactionManager"><a href="#JtaTransactionManager" class="headerlink" title="JtaTransactionManager"></a>JtaTransactionManager</h2><p><img data-src="/./image-20250721111840300.png" alt="image-20250721111840300"></p>
+<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="JtaTransactionManager"><a href="#JtaTransactionManager" class="headerlink" title="JtaTransactionManager"></a>JtaTransactionManager</h2><p><img data-src="image-20250721111840300.png" alt="image-20250721111840300"></p>
 <p>可以看到readObject方法中调用了initUserTransactionAndTransactionManager方法</p>
-<p><img data-src="/./image-20250721104430676.png" alt="image-20250721104430676"></p>
+<p><img data-src="image-20250721104430676.png" alt="image-20250721104430676"></p>
 <p>在initUserTransactionAndTransactionManager方法中又调用了lookupUserTransaction，值为我们设置的userTansactionName</p>
-<p><img data-src="/./image-20250721111048635.png" alt="image-20250721111048635"></p>
+<p><img data-src="image-20250721111048635.png" alt="image-20250721111048635"></p>
 <p>lookupUserTransaction调用了JndiTemplate对象的lookup方法</p>
-<h2 id="JndiTemplate"><a href="#JndiTemplate" class="headerlink" title="JndiTemplate"></a>JndiTemplate</h2><p><img data-src="/./image-20250721111145127.png" alt="image-20250721111145127"></p>
+<h2 id="JndiTemplate"><a href="#JndiTemplate" class="headerlink" title="JndiTemplate"></a>JndiTemplate</h2><p><img data-src="image-20250721111145127.png" alt="image-20250721111145127"></p>
 <p>lookup方法嵌套调用真正的lookup，值还是之前的UserTransactionName</p>
-<p><img data-src="/./image-20250721111315387.png" alt="image-20250721111315387"></p>
+<p><img data-src="image-20250721111315387.png" alt="image-20250721111315387"></p>
 <p>可以看到在最后调用了execute方法</p>
-<p><img data-src="/./image-20250721111459644.png" alt="image-20250721111459644"></p>
+<p><img data-src="image-20250721111459644.png" alt="image-20250721111459644"></p>
 <p>可以看到execute方法内部其实就是</p>
 <p>getContext &#x3D;》 createInitialContext &#x3D;》 ctx &#x3D; InitialContext &#x3D;》InitialContext.lookup(UserTransactionName)</p>
 <p>然后这里的UserTransactionName我们也可以设置</p>
-<p><img data-src="/./image-20250721113855893.png" alt="image-20250721113855893"></p>
-<p><img data-src="/./image-20250721102137222.png" alt="image-20250721102137222"></p>
+<p><img data-src="image-20250721113855893.png" alt="image-20250721113855893"></p>
+<p><img data-src="image-20250721102137222.png" alt="image-20250721102137222"></p>
 
       <div class="tags">
           <a href="/tags/web/" rel="tag"><i class="ic i-tag"></i> web</a>
@@ -185,7 +185,7 @@ Yui Yuri's Dream = prophet-blog</title>
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">Edited on</span>
-    <time title="Modified: 2025-07-25 12:30:07" itemprop="dateModified" datetime="2025-07-25T12:30:07+08:00">2025-07-25</time>
+    <time title="Modified: 2025-07-25 12:56:30" itemprop="dateModified" datetime="2025-07-25T12:56:30+08:00">2025-07-25</time>
   </span>
 </div>
 
@@ -217,7 +217,7 @@ Yui Yuri's Dream = prophet-blog</title>
     <div class="item left">
       
 
-  <a href="/2025/07/21/hello-world/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclize41wj20zk0m87gk.jpg" title="Hello World">
+  <a href="/2025/07/21/hello-world/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipet4bz0yj20zk0m8e81.jpg" title="Hello World">
   <span class="type">Previous Post</span>
   <span class="category"><i class="ic i-flag"></i> </span>
   <h3>Hello World</h3>
@@ -314,7 +314,7 @@ Yui Yuri's Dream = prophet-blog</title>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2025/07/25/spring-jtaTranscationMannager%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" title="spring_jtaTranscationMannager漏洞分析">spring_jtaTranscationMannager漏洞分析</a></span>
+    <span><a href="/2025/07/21/hello-world/" title="Hello World">Hello World</a></span>
   </li>
 
       
@@ -323,7 +323,7 @@ Yui Yuri's Dream = prophet-blog</title>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2025/07/21/hello-world/" title="Hello World">Hello World</a></span>
+    <span><a href="/2025/07/25/spring-jtaTranscationMannager%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" title="spring_jtaTranscationMannager漏洞分析">spring_jtaTranscationMannager漏洞分析</a></span>
   </li>
 
   </ul>
